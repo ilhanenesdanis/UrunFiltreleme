@@ -1,0 +1,105 @@
+﻿@using ÜrünFiltreleme.Models
+@model (List<Ürünler> urunler,List<Kategoriler> kategori)
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">İlhan Enes Daniş Filtreleme İşlemi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">İlhan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Enes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Daniş</a>
+                    </li>
+            </div>
+        </div>
+    </nav>
+</header>
+<section id="product" class="mt-5 mb-5 pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.kategori)
+            {
+                int cat = Convert.ToInt32(Request.QueryString["Id"]);
+                if (item.Id == cat)
+                {
+                    <div class="col-md-3 col-sm-12 col-lg-3">
+                        <h1>@item.KategoriAdı</h1>
+                        <div class="form-check">
+                            <input class="form-check-input" name="rbn" type="checkbox" checked="checked=@item.Id" onclick="GetProduct()" value="@item.Id" id="filterCheck">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                @item.Ürünler.ToList();
+                            </label>
+                        </div>
+                        <hr>
+
+                    </div>
+                }
+                else
+                {
+                    <h1>@item.KategoriAdı</h1>
+                    <div class="form-check">
+                        <input class="form-check-input" name="rbn" type="checkbox"  onclick="GetProduct()" value="@item.Id" id="filterCheck">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            @item.Ürünler.ToList();
+                        </label>
+                    </div>
+                   <hr />
+                }
+            }
+        <div class="col-md-9 col-sm-12 col-lg-9">
+            <div id="urunler">
+                <div class="row">
+                    @foreach (var item in Model.urunler)
+                    {
+                        <div class="col-md-4 col-sm-12 col-lg-4">
+                            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                                <div class="card-header">@item.ÜrünAdı</div>
+                                <div class="card-body text-danger">
+                                    <div class="card-title">
+                                        @item.Kategoriler.KategoriAdı
+                                    </div>
+                                    <div class="card-text">
+                                        @item.Açıklama
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    function GetProduct() {
+        var id = $('[name="rbn"]:checkbox:checked').val();
+    
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("getProduct","Home")',
+            traditional: true,
+            data: { cat: id },
+            success: function (result) {
+                $("#urunler").html(result);
+            },
+            error: function () {
+                alert('Aradıgınız kriterde ürün bulunmadı');
+            }
+        }).done(function () {
+            $("#thisButton").show();
+        });
+    };
+</script>

@@ -1,0 +1,45 @@
+/* Kaydırma Çaubuğu */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F2F2F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #D6D6D6;
+}
+
+  ::-webkit-scrollbar-thumb:hover {
+      background-color: #A5A5A5;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+      background-color: #A5A5A5;
+  }
+:root{
+  --backcolor:#f7f7f7;
+}
+body {
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+}
+a:hover, a:active, a:focus {
+    text-decoration: none;
+}
+.no-gutters{
+	padding:0;
+}
+
+.fancy img {
+  width: 500px;
+}

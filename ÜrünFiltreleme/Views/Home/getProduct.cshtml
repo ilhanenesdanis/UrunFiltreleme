@@ -1,0 +1,23 @@
+﻿<div class="row">
+
+    @foreach (var item in ViewBag.prod)
+    {
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    @item.ÜrünAdı
+                </div>
+                <div class="card-body text-danger">
+                    <div class="card-title">
+                        @item.Kategoriler.KategoriAdı
+                    </div>
+                    <div class="card-text">
+                        @item.Açıklama
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    }
+</div>
